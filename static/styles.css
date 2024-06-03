@@ -1,0 +1,306 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    /* background-image: url(https://www.elegantthemes.com/blog/wp-content/uploads/2013/09/bg-2-full.jpg); */
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-family: 'Jaro', sans-serif;
+    font-size: large;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;  /* Added to align items vertically */
+    padding: 0 20px;
+}
+
+.nav-left,
+.nav-right {
+    display: flex;
+    align-items: center;  /* Added to align items vertically */
+}
+
+.nav a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+    font-family: 'Jaro', sans-serif;
+    font-size: large;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.main-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 100px 20px 20px; /* Adjusted top padding to add space between header and main container */
+    max-width: 1200px;
+    margin: auto;
+    height: 600px; /* Fixed height */
+    overflow: hidden; /* Prevents overflow due to fixed height */
+}
+
+.form-section, .qr-section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-section {
+    flex: 1;
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.image{
+    padding: auto;
+    margin-bottom: 2%;
+    margin-left: 25%;
+    display: grid;
+    grid-area: auto;
+    justify-self: center;
+}
+.image img{
+    width: 70%;
+}
+.qr-section {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.icon-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    border: #333;
+    border-radius: 3;
+}
+
+.icon {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    width: 120px; /* Increased width */
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: background-color 0.3s;
+    font-size: 18px; /* Increased font size */
+}
+
+.icon i {
+    font-size: 32px; /* Increased icon size */
+    margin-right: 10px;
+}
+
+.icon:hover {
+    background-color: #eee;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.fields input{
+    width: auto;
+    
+}
+.fields{
+    float: left;
+}
+.slogan {
+    margin-right: 20px;
+    text-align: left;
+}
+
+.slogan h2 {
+    font-family: "Jaro", sans-serif;
+    font-size: large;
+    font-weight: bold;
+    color: #333;
+}
+
+.slogan p {
+    font-family: "Jaro", sans-serif;
+    font-size: medium;
+    color: #555;
+}
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-container form input[type="text"],
+.form-container form input[type="email"],
+.form-container form input[type="tel"],
+.form-container form input[type="password"] {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.form-container form input[type="submit"] {
+    padding: 10px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.form-container form input[type="submit"]:hover {
+    background-color: #555;
+}
+
+.qr-placeholder {
+    width: 200px;
+    height: 200px;
+    background-image: url('/static/placeholder-qr.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #555;
+}
+
+.slogan-section {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: center;
+
+}
+
+.slogan-section h2 {
+    font-family: "Jaro", sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    transition: font-size 0.3s;
+}
+
+.slogan-section p {
+    font-family: "Jaro", sans-serif;
+    font-size: 16px;
+    color: #555;
+    transition: font-size 0.3s;
+}
+
+.slogan-section:hover h2,
+.slogan-section:hover p {
+    font-size: 26px;
+}
+
+.image-section {
+    flex: 1;
+    margin-right: 0px;
+    padding-left: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-self: right;
+    align-items: center;
+}
+
+.image-section img {
+    width: 60%;
+    height: 8cm;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* You can adjust width and height here if needed */
+}
+
+.social-links a {
+    font-size: 25px;
+    display: inline-block;
+    background: #212431;
+    color: #fff;
+    line-height: 1;
+    padding: 8px 0;
+    margin-left: 10px;
+    border-radius: 50%;
+    text-align: center;
+    width: 30px;
+    height: 25px;
+    transition: 0.3s;
+  }
+  .white-section {
+    background-color: #fff;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 20px;
+    padding: 20px 20px 20px 20px;
+    max-width: 1000px;
+    
+}
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 3px 0;
+    width: 100%;
+}
+.footer .p{
+    text-align: center;
+}
+.form-group {
+    display: inline-block;
+    margin-right: 20px;
+    margin-bottom: 15px;
+}
+
+#formMessage {
+    text-align: center;
+}
+
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: inline-block;
+    width: 80px; 
+}

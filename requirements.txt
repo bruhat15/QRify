@@ -1,0 +1,13 @@
+Flask
+render_template
+request
+send_file
+redirect
+session
+url_for
+qrcode
+os
+base64
+sqlite3
+werkzeug.security
+io

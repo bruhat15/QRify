@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <header>
+        <div class="nav">
+            <div class="logo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-qr-code-scan" viewBox="0 0 16 16">
+                    <path d="M0 .5A.5.5 0 0 1 .5 0h3a.5.5 0 0 1 0 1H1v2.5a.5.5 0 0 1-1 0zm12 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0V1h-2.5a.5.5 0 0 1-.5-.5M.5 12a.5.5 0 0 1 .5.5V15h2.5a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1 0-1H15v-2.5a.5.5 0 0 1 .5-.5M4 4h1v1H4z"/>
+                    <path d="M7 2H2v5h5zM3 3h3v3H3zm2 8H4v1h1z"/>
+                    <path d="M7 9H2v5h5zm-4 1h3v3H3zm8-6h1v1h-1z"/>
+                    <path d="M9 2h5v5H9zm1 1v3h3V3zM8 8v2h1v1H8v1h2v-2h1v2h1v-1h2v-1h-3V8zm2 2H9V9h1zm4 2h-1v1h-2v1h3zm-4 2v-1H8v1z"/>
+                    <path d="M12 9h2V8h-2z"/>
+                </svg>
+                GenQR
+            </div>
+            <div class="nav-left">
+                <a href="#" class="jaro-link">Home</a>
+                <a href="#about" class="jaro-link">About</a>
+                <a href="#why_us" class="jaro-link">Why Us?</a>
+                <a href="#contact_us" class="jaro-link">Contact Us!</a>
+            </div>
+            <div class="nav-right">
+                {% if session['user_id'] %}
+                    <a href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                {% else %}
+                    <a href="/login"><i class="fas fa-sign-in-alt"></i> Login</a>
+                    <a href="/signup"><i class="fas fa-user-plus"></i> Sign Up</a>
+                {% endif %}
+            </div>
+        </div>
+        
+    </header>
+    <body onload="showDefaultFields()">
+    <div class="main-container">
+        <div class="form-section">
+            <div class="icon-container">
+                <div class="icon" data-type="link">
+                    <i class="fas fa-link"></i>
+                    <span>Link</span>
+                </div>
+                <div class="icon" data-type="email">
+                    <i class="fas fa-envelope"></i>
+                    <span>Email</span>
+                </div>
+                <div class="icon" data-type="text">
+                    <i class="fas fa-font"></i>
+                    <span>Text</span>
+                </div>
+                <div class="icon" data-type="call">
+                    <i class="fas fa-phone"></i>
+                    <span>Call</span>
+                </div>
+                <div class="icon" data-type="sms">
+                    <i class="fas fa-sms"></i>
+                    <span>SMS</span>
+                </div>
+                <div class="icon" data-type="vcard">
+                    <i class="fas fa-id-card"></i>
+                    <span>VCard</span>
+                </div>
+                <div class="icon" data-type="wifi">
+                    <i class="fas fa-wifi"></i>
+                    <span>WiFi</span>
+                </div>
+            </div>
+            <div class="grid-container">
+                <div class="fields">
+                    <form action="/" method="post">
+                      <input type="hidden" id="type" name="type">
+                      <br> <br>
+                      <div id="fields"></div>
+                      <br> <br>
+                      <input type="submit" value="Generate QR Code" style="width: auto; " >
+                    </form>
+                </div>
+                <div class="image-section">
+                    <img src="https://image.freepik.com/free-vector/qr-code-scanning-concept-with-characters_23-2148625453.jpg" alt="QR Code Scanning" style="max-width: 100%;">
+                </div>
+            </div>
+            <div class="form-container">
+                <div class="slogan">
+                    <h2>Your QR Code, Your Way!</h2>
+                    <p>Create, customize, and share in seconds.</p>
+                </div>
+            </div>
+        </div>
+        <div class="qr-section">
+            {% if qr_code_base64 %}
+                <img src="data:image/png;base64,{{ qr_code_base64 }}" alt="QR Code">
+                <a href="/download_qr" class="btn">Download QR Code</a>
+            {% else %}
+                <div class="qr-placeholder"></div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="white-section">
+        <div class="info-section" id="about">
+            <h2>About Us</h2>
+            <p>Welcome to GenQR, your one-stop solution for generating custom QR codes. Our service allows you to create QR codes for various purposes, including links, emails, text, phone calls, SMS, vCards, and WiFi configurations. Whether you are a business looking to share contact information quickly or an individual wanting to simplify connectivity, our QR code generator is designed to meet your needs.</p>
+        </div>
+        <div class="image">
+            <img src="https://media.istockphoto.com/id/1257434760/vector/people-scanning-qr-code-for-payment-via-smartphone-smart-technology-for-internet-and-mobile.jpg?s=612x612&w=0&k=20&c=zYW6c2f71OVlIAVjZghIrmKs0g_9YhU1Kr8ZZfJ8XVY=" alt="">
+        </div>
+        <div class="info-section" id="why_us">
+            <h2>Why Choose Us?</h2>
+            <p>At GenQR, we strive to offer the best QR code generation experience. Here are a few reasons to choose us:</p>
+            <ul>
+                <li><strong>Ease of Use:</strong> Our intuitive interface makes it easy for anyone to generate QR codes without technical knowledge.</li>
+                <li><strong>Multiple Formats:</strong> We support various QR code formats, ensuring you can create the perfect QR code for your needs.</li>
+                <li><strong>Secure:</strong> We prioritize your data security. Your information is never stored or shared.</li>
+                <li><strong>History Tracking:</strong> Registered users can track their QR code generation history for easy access and management.</li>
+                <li><strong>Support:</strong> Our customer support team is always ready to assist you with any questions or issues.</li>
+            </ul>
+        </div>
+        <div class="info-section" id="contact_us">
+            <h2>Contact Us</h2>
+            <p>If you have any questions, feedback, or need assistance, please don't hesitate to contact us:</p>
+            <form id="contactForm" action="/contact_us" method="post">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email" id="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+            </div>
+            <p id="formMessage"></p>
+        </div>  
+    </div>
+    <script>
+        function showDefaultFields() {
+            var defaultType = 'link';
+            var fieldsContainer = document.getElementById('fields');
+            document.getElementById('type').value = defaultType;
+            fieldsContainer.innerHTML = '<label for="link">Link:</label><br><input type="text" id="link" name="link"><br>';
+        }
+    
+        document.querySelectorAll('.icon').forEach(icon => {
+            icon.addEventListener('click', function() {
+                var type = this.getAttribute('data-type');
+                var fieldsContainer = document.getElementById('fields');
+                document.getElementById('type').value = type;
+                fieldsContainer.innerHTML = '';
+    
+                if (type === 'link') {
+                    fieldsContainer.innerHTML = '<label for="link">Link:<br><br></label><br><input type="text" id="link" name="link"><br>';
+                } else if (type === 'email') {
+                    fieldsContainer.innerHTML = '<label for="email">Email:</label><br><input type="email" id="email" name="email"><br>';
+                } else if (type === 'text') {
+                    fieldsContainer.innerHTML = '<label for="text">Text:</label><br><input type="text" id="text" name="text"><br>';
+                } else if (type === 'call' || type === 'sms') {
+                    fieldsContainer.innerHTML = '<label for="phone">Phone Number:</label><br><input type="tel" id="phone" name="phone"><br>';
+                } else if (type === 'vcard') {
+                    fieldsContainer.innerHTML = '<label for="name">Name:</label><br><input type="text" id="name" name="name"><br>' +
+                                                 '<label for="phone">Phone:</label><br><input type="tel" id="phone" name="phone"><br>' +
+                                                 '<label for="email">Email:</label><br><input type="email" id="email" name="email"><br>';
+                } else if (type === 'wifi') {
+                    fieldsContainer.innerHTML = '<label for="auth">Authentication:</label><br><input type="text" id="auth" name="auth"><br>' +
+                                                 '<label for="ssid">SSID:</label><br><input type="text" id="ssid" name="ssid"><br>' +
+                                                 '<label for="password">Password:</label><br><input type="password" id="password" name="password"><br>';
+                }
+            });
+        });
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('contactForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+    
+              
+                var messageElement = document.getElementById("formMessage");
+                messageElement.textContent = "Form submitted successfully!";
+            });
+        });
+    </script>
+    <footer class="footer">
+        <div class="p">
+        <p>&copy; 2024 GenQR. All rights reserved.</p>
+    </div>
+    <H3>Follow US</H3>
+        <div class="social-links mt-3 text-center">
+            
+            <a href="#" class="twitter"><i class="fa-brands fa-twitter"></i></a>
+            <a href="https://www.instagram.com/shashi_gowda._.12?utm_source=qr&igsh=b2N0ZHlqc3piNThi" class="instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" class="whatsapp"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://www.youtube.com/" class="youtube"><i class="fa-brands fa-youtube"></i></a>
+            <a href="#" class="facebook"><i class="fa-brands fa-facebook"></i></a>
+          </div>
+    </footer>
+</body>
+</html>
